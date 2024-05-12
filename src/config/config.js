@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 
-const pokedexRoutes = require('../routes/routes');
+const webRoutes = require('../routes/web');
+const apiRoutes = require('../routes/api')
 
 dotenv.config();
 const app = express();
@@ -13,6 +14,7 @@ app.set('port', port);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../resources/views'));
 
-app.use('/', pokedexRoutes);
+app.use('/', webRoutes);
+app.use('/api', apiRoutes);
 
 module.exports = app;
