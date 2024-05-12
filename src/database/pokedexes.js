@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const pokedexData = [
     {
         "id": 1,
@@ -82,4 +80,5 @@ const pokedexData = [
         "philosophicalPhrase": "Its short feet are tipped with suction pads that enable it to tirelessly climb slopes and walls."
     }
 ];
-exports.default = pokedexData;
+
+module.exports = pokedexData;

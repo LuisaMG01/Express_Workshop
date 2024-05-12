@@ -1,11 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const pokedexController_1 = __importDefault(require("../controllers/pokedexController"));
-const router = express_1.default.Router();
-router.get('/', pokedexController_1.default.index);
-router.get('/random', pokedexController_1.default.getRandomPokedex);
-exports.default = router;
+const express = require('express');
+const PokedexController = require('../controllers/pokedexController');
+const PokedexApiController = require('../controllers/api/pokedexApiController');
+
+const router = express.Router();
+
+router.get('/', PokedexController.index);
+router.get('/random', PokedexApiController.getRandomPokedex);
+
+module.exports = router;
