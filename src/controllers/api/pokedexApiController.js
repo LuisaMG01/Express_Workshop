@@ -1,25 +1,18 @@
 const Pokedex = require('../../models/Pokedex');
+const os = require("os")
 
 class PokedexApiController {
     static getRandomPokedex(req, res) {
         try {
             const pokedexes = Pokedex.getPokedexes();
             const randomPokedex = pokedexes[Math.floor(Math.random() * pokedexes.length)];
-            const pokedex = new Pokedex(
-                randomPokedex.id,
-                randomPokedex.name,
-                randomPokedex.height,
-                randomPokedex.ability,
-                randomPokedex.image,
-                randomPokedex.philosophicalPhrase
-            );
 
             res.json({
-                id: pokedex.getId(),
-                name: pokedex.getName(),
-                height: pokedex.getHeight(),
-                ability: pokedex.getAbility(),
-                // containerId: process.env.HOSTNAME
+                id: randomPokedex.getId(),
+                name: randomPokedex.getName(),
+                height: randomPokedex.getHeight(),
+                ability: randomPokedex.getAbility(),
+                containerId: os.hostname()
             });
         } catch (error) {
             console.error(error);

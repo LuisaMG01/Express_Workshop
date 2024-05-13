@@ -1,0 +1,23 @@
+<%- include('../layouts/app') %>
+
+  <div class="container mt-5">
+    <h1 class="mb-4">Image and Philosophical Quote of Pokenea</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <img src="<%= viewData.imageUrl %>" class="img-fluid rounded" alt="Pokenea Image" />
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0">
+          <div class="card-body">
+            <h2 class="card-title"><strong>Philosophical Quote:</strong></h2>
+            <p class="card-text lead">
+              <%= viewData.philosophy %>
+            </p>
+            <p class="card-text"><strong>Container ID:</strong>
+              <%= viewData.containerId %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

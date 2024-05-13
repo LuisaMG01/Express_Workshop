@@ -67,7 +67,19 @@ class Pokedex {
     }
 
     static getPokedexes() {
-        return pokedexData;
+        const pokedexes = [];
+        pokedexData.forEach(pokemon => {
+            const pokedex = new Pokedex(
+                pokemon.id,
+                pokemon.name,
+                pokemon.height,
+                pokemon.ability,
+                pokemon.image,
+                pokemon.philosophicalPhrase
+            );
+            pokedexes.push(pokedex);
+        });
+        return pokedexes;
     }
 }
 

@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 
 const webRoutes = require("../routes/web");
 const apiRoutes = require("../routes/api");
-const imageRoutes = require("../routes/image");
 
 dotenv.config();
 const app = express();
@@ -17,6 +16,5 @@ app.set("views", path.join(__dirname, "../resources/views"));
 
 app.use("/", webRoutes);
 app.use("/api", apiRoutes);
-app.use("/image", imageRoutes);
 
 module.exports = app;
