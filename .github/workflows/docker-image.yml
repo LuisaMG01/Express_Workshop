@@ -14,13 +14,11 @@ jobs:
 
     steps: 
     - uses: actions/checkout@v2 
-    - name: docker login 
+    - name: Docker login 
       env: 
         DOCKER_USER: ${{secrets.DOCKERHUB_USER}}
         DOCKER_PASS: ${{secrets.DOCKERHUB_PASS}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASS
-        - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag luisamg01/pokeneas:latest
-        - name: Docker Push
-        run: docker push luisamg01/pokeneas-randomquote
+        docker build . --file Dockerfile --tag luisamg01/pokeneas:latest
+        docker push luisamg01/pokeneas:latest
