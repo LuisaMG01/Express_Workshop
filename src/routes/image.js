@@ -1,8 +1,11 @@
 const express = require("express");
-const { getPokenea } = require("../controllers/imageController");
+const PokedexImageController = require("../controllers/imageController");
 
 const router = express.Router();
 
-router.get("/pokenea", getPokenea);
+router.get(
+  "/random-pokemon",
+  PokedexImageController.getRandomPokemonImageAndPhilosophicalPhrase
+);
 
 module.exports = router;

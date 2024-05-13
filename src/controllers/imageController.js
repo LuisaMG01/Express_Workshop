@@ -1,67 +1,29 @@
-const { Storage } = require("@google-cloud/storage");
-const ejs = require("ejs");
-require("dotenv").config();
-const cloudStorageConfig = require("../config/cloudStorage");
+const path = require("path");
+const Pokedex = require("../models/Pokedex");
 
-const storage = new Storage({
-  projectId: cloudStorageConfig.projectId,
-  credentials: {
-    client_email: cloudStorageConfig.clientEmail,
-    private_key: cloudStorageConfig.privateKey.replace(/\\n/g, "\n"),
-  },
-});
+class PokedexImageController {
+  static getRandomPokemonImageAndPhilosophicalPhrase(req, res) {
+    try {
+      const pokedexes = Pokedex.getPokedexes();
+      const randomPokedex =
+        pokedexes[Math.floor(Math.random() * pokedexes.length)];
+      const imageUrl = randomPokedex.image;
+      const philosophy = randomPokedex.philosophicalPhrase;
+      const containerId = process.env.HOSTNAME;
 
-const bucket = storage.bucket(cloudStorageConfig.bucketName);
-
-function getRandomPhilosophicalQuote() {
-  const philosophicalQuotes = [
-    "Plata o plomo.",
-    "Sabe que carabana, si no le gusta el motilado pues paila, no lo mire.",
-    "Estamos perdidasss!! Perdidas, perdidas",
-    "Uy ñero no!",
-    "Por eso robo p****** como usted",
-  ];
-
-  const randomIndex = Math.floor(Math.random() * philosophicalQuotes.length);
-  return philosophicalQuotes[randomIndex];
-}
-
-async function getPokenea(req, res) {
-  try {
-    const [files] = await bucket.getFiles();
-
-    const randomIndex = Math.floor(Math.random() * files.length);
-    const randomImage = files[randomIndex].name;
-    const randomPhilosophy = getRandomPhilosophicalQuote();
-    const containerId =
-      process.env.HOSTNAME || "Could not obtain the container ID";
-
-    ejs.renderFile(
-      __dirname + "/../views/pokenea.ejs",
-      {
-        imageUrl: `https://storage.googleapis.com/${bucket.name}/${randomImage}`,
-        philosophy: randomPhilosophy,
+      res.render(path.join(__dirname, "../views/pokenea.ejs"), {
+        imageUrl,
+        philosophy,
         containerId,
-      },
-      function (err, str) {
-        if (err) {
-          console.error("Error rendering the view:", err);
-          res.status(500).send("Internal Server Error");
-        } else {
-          res.send(str);
-        }
-      }
-    );
-  } catch (error) {
-    console.error("Error fetching the image:", error);
-    res.status(500).send("Internal Server Error");
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error:
+          "Error while fetching the random Pokémon image and philosophical phrase",
+      });
+    }
   }
 }
 
-function getContainerId(req, res) {
-  const containerId =
-    process.env.HOSTNAME || "Could not obtain the container ID";
-  res.send(`The container ID is: ${containerId}`);
-}
-
-module.exports = { getPokenea, getContainerId };
+module.exports = PokedexImageController;
