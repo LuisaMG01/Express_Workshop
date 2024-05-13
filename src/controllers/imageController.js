@@ -37,7 +37,7 @@ async function getPokenea(req, res) {
       process.env.HOSTNAME || "Could not obtain the container ID";
 
     ejs.renderFile(
-      __dirname + "/../views/pokenea.ejs",
+      __dirname + "/../resources/views/pokenea.ejs",
       {
         imageUrl: `https://storage.googleapis.com/${bucket.name}/${randomImage}`,
         philosophy: randomPhilosophy,
