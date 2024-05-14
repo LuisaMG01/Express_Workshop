@@ -18,7 +18,7 @@ class PokedexController {
         containerId,
       };
 
-      res.render("layouts/app", { viewData: viewData });
+      res.render("pokeneas/pokenea", { viewData: viewData });
 
     } catch (error) {
       console.error(error);
